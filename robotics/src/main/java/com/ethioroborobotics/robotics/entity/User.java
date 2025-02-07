@@ -9,22 +9,29 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
-public class UserInfo {
+public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-    @Column(name = "first_name")
+    private Long userId;
+
+    @Column(nullable = false)
     private String firstName;
-    @Column(name = "last_name")
+
+    @Column(nullable = false)
     private String lastName;
-    @Column(name = "email")
+
+    @Column(nullable = false, unique = true)
     private String email;
-    @Column(name = "username")
+
+    @Column(nullable = false, unique = true)
     private String username;
-    @Column(name = "password")
+
+    @Column(nullable = false)
     private String password;
-    @Column(name = "user_role")
-    private String role;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
 }
