@@ -22,6 +22,7 @@ public class UserController {
     public ResponseEntity<User> register(@RequestBody User user) {
         User existingUser = userRepository.findByUsername((user.getUsername()));
         if (existingUser!=null) {
+
             return ResponseEntity.status(409).body(null);
         }
         User savedUser = userService.register(user);
