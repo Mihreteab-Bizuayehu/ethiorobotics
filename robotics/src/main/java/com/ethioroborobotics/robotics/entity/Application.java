@@ -2,12 +2,14 @@ package com.ethioroborobotics.robotics.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -19,7 +21,7 @@ public class Application {
     private Integer applicantId;
 
     @Column(name = "full_name", nullable = false)
-    private String fullName;
+    private String name;
 
     @Column(name = "email", nullable = false)
     private String email;

@@ -23,7 +23,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = "RqxPOuVfHoBA8Uq40MhJvfY6qvg6N9W9vt23s=";
+    private static final String SECRET_KEY = "JFZwW66yhhyx6cbr2FGjEdlHnRF2L4x/+gsU5nL5ET0=";
     private static final String ISSUER = "ERR";
     private static final long EXPIRATION_TIME = 10 * 60 * 60 * 1000; // 10 hours
 

@@ -1,6 +1,7 @@
 package com.ethioroborobotics.robotics.service;
 
 import com.ethioroborobotics.robotics.entity.Product;
+import com.ethioroborobotics.robotics.entity.ProductCategory;
 import com.ethioroborobotics.robotics.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,17 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+
     public Optional<Product> getProductById(Long productId){
         return productRepository.findById(productId);
+    }
+
+    public List<Product> getProductsByName(String name) {
+        return productRepository.findByProductName(name);
+    }
+
+    public List<Product> getProductsByCategory(ProductCategory category) {
+        return productRepository.findByProductCategory(category);
     }
 
     public Optional<Product>updateProduct(Long productId,Product updateProduct){

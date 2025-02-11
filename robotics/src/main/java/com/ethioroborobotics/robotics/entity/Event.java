@@ -1,13 +1,13 @@
 package com.ethioroborobotics.robotics.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Getter
 @Setter
@@ -24,16 +24,18 @@ public class Event {
     @Column(name = "event_name", nullable = false)
     private String eventName;
 
-    @Column(name = "event_date", nullable = false)
+    @CreationTimestamp
+    @Column(name = "event_date", nullable = false, updatable = false)
     private LocalDate eventDate;
 
-    @Column(name = "event_time")
+    @CreationTimestamp
+    @Column(name = "event_time", updatable = false)
     private LocalTime eventTime;
 
-    @Column(name = "location")
+    @Column(name = "location", nullable = false)
     private String location;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
     @Enumerated(EnumType.STRING)

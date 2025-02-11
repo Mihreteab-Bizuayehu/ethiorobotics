@@ -25,8 +25,7 @@ public class UserService {
     }
 
     public String verify(User user) {
-        Authentication authenticate = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(user
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user
                         .getUsername(), user.getPassword())
         );
 

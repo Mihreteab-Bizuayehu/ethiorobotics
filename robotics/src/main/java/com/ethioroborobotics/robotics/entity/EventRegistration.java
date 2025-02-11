@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 
@@ -27,12 +28,13 @@ public class EventRegistration {
     @Column(name = "attendee_name", nullable = false)
     private String attendeeName;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false,unique = true,updatable = true)
     private String email;
 
     @Column(name = "phone")
     private String phone;
 
-    @Column(name = "registration_date", nullable = false)
+    @CreationTimestamp
+    @Column(name = "registration_date", nullable = false, updatable = false )
     private LocalDate registrationDate;
 }

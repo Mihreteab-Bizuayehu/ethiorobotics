@@ -1,6 +1,7 @@
 package com.ethioroborobotics.robotics.controller;
 
 import com.ethioroborobotics.robotics.entity.Product;
+import com.ethioroborobotics.robotics.entity.ProductCategory;
 import com.ethioroborobotics.robotics.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,23 @@ public class ProductController {
 
     return ResponseEntity.status(HttpStatus.OK).body(products);
 }
+
+    @GetMapping("/product/{id}")
+    public ResponseEntity<Product> getProduct(@PathVariable("id") Long productId){
+        Optional<Product> product=productService.getProductById(productId);
+    return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/name/{name}")
+    public List<Product> findByName(@PathVariable String name) {
+        return productService.getProductsByName(name);
+    }
+
+    @GetMapping("/category/{category}")
+    public List<Product> findByCategory(@PathVariable ProductCategory category) {
+        return productService.getProductsByCategory(category);
+    }
+
 
 @PutMapping("/update/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable("id") Long productId,@RequestBody Product product){

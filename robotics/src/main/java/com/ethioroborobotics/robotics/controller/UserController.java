@@ -10,28 +10,28 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserRepository userRepository;
     private final UserService userService;
 
-    @PostMapping("/auth/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
-        User existingUser = userRepository.findByUsername((user.getUsername()));
-        if (existingUser!=null) {
 
-            return ResponseEntity.status(409).body(null);
+    @PostMapping("/auth/register")
+    public ResponseEntity<?> register(@RequestBody User user) {
+        if (user.getUsername() == null || userRepository.findByUsername(user.getUsername()) != null) {
+            return ResponseEntity.status(409).body("Username already exists or invalid input");
         }
         User savedUser = userService.register(user);
         return ResponseEntity.status(201).body(savedUser);
     }
 
     @PostMapping("/auth/login")
-    public String login(@RequestBody User user) {
-        return userService.verify(user);
+    public ResponseEntity<String> login(@RequestBody User user) {
+        String token = userService.verify(user);
+        return ResponseEntity.ok(token);
     }
 }
 
