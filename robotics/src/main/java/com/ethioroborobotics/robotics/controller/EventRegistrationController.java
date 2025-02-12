@@ -4,6 +4,8 @@ import com.ethioroborobotics.robotics.entity.EventRegistration;
 import com.ethioroborobotics.robotics.repository.EventRegistrationRepository;
 import com.ethioroborobotics.robotics.service.EventRegistrationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,30 +20,33 @@ public class EventRegistrationController {
     private final EventRegistrationRepository eventRegistrationRepository;
 
     @PostMapping("/add")
-    public EventRegistration createEventRegistration(String email, @RequestBody EventRegistration eventRegistration){
+    public ResponseEntity<EventRegistration> createEventRegistration(String email, @RequestBody EventRegistration eventRegistration){
         if (eventRegistrationRepository.findByEmail(email).isPresent()){
             throw new  RuntimeException("The user is already exist!");
         }
-        return eventRegistrationService.createRegistration(eventRegistration);
+        EventRegistration saved=eventRegistrationService.createRegistration(eventRegistration);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     @GetMapping
-    public List<EventRegistration> getAllEventRegistrations(){
-        return eventRegistrationService.getAllRegistrations();
+    public ResponseEntity<List<EventRegistration>> getAllEventRegistrations(){
+        return ResponseEntity.ok(eventRegistrationService.getAllRegistrations());
     }
 
     @GetMapping("/attendee/{email}")
-    public Optional<EventRegistration> getEventRegistrationByEmail(@PathVariable("email") String email){
-        return eventRegistrationService.getRegistrationByEmail(email);
+    public ResponseEntity<Optional<EventRegistration>> getEventRegistrationByEmail(@PathVariable("email") String email){
+        return ResponseEntity.status(HttpStatus.OK).body(eventRegistrationService.getRegistrationByEmail(email));
     }
 
     @PutMapping("/update/{email}")
-    public Optional<EventRegistration> updateEventRegistration(@PathVariable("email") String email,@RequestBody EventRegistration eventRegistration){
-        return eventRegistrationService.updateRegistration(email,eventRegistration);
+    public ResponseEntity<Optional<EventRegistration>> updateEventRegistration(@PathVariable("email") String email,@RequestBody EventRegistration eventRegistration){
+        Optional<EventRegistration> saved=eventRegistrationService.updateRegistration(email,eventRegistration);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(saved) ;
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteEventRegistration(@PathVariable("id") Integer registrationId){
+    public ResponseEntity<String> deleteEventRegistration(@PathVariable("id") Integer registrationId){
         eventRegistrationService.deleteEventRegistration(registrationId);
+        return ResponseEntity.ok("EventRegistration cancelled successfully!");
     }
 }

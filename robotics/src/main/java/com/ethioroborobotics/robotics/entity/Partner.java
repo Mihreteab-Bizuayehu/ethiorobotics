@@ -2,11 +2,14 @@ package com.ethioroborobotics.robotics.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 
+@Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,19 +24,21 @@ public class Partner {
     @Column(name = "partner_name", nullable = false)
     private String partnerName;
 
-    @Column(name = "contact_person")
+    @Column(name = "contact_person",nullable = false)
     private String contactPerson;
 
-    @Column(name = "contact_email")
+    @Column(name = "contact_email",unique = true,updatable = true)
     private String contactEmail;
 
     @Column(name = "contact_phone")
     private String contactPhone;
 
-    @Column(name = "partnership_start_date", nullable = false)
+    @CreationTimestamp
+    @Column(name = "partnership_start_date",updatable = false)
     private LocalDate partnershipStartDate;
 
-    @Column(name = "partnership_end_date")
+    @CreationTimestamp
+    @Column(name = "partnership_end_date",updatable = false)
     private LocalDate partnershipEndDate;
 
     @Column(columnDefinition = "TEXT",name = "description", nullable = false)

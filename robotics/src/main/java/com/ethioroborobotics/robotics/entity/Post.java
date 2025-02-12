@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -17,21 +19,26 @@ import java.util.Date;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long postId;
+    private Integer postId;
 
-    private Long authorId;
+    @Column(name = "author_name")
+    private String authorName;
 
+    @Column(name = "post_title")
     private String title;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name="post_description", columnDefinition = "TEXT")
     private String content;
 
-    @Temporal(TemporalType.DATE)
-    private Date dateCreated;
+    @CreationTimestamp
+    @Column(name = "date_created", updatable = false, nullable = false)
+    private LocalDateTime dateCreated;
 
-    @Temporal(TemporalType.DATE)
-    private Date dateModified;
+    @UpdateTimestamp
+    @Column(name = "date_modified")
+    private LocalDateTime dateModified;
 
+    @Column(name = "post_category")
     @Enumerated(EnumType.STRING)
     private PostCategory category;
 

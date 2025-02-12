@@ -2,9 +2,11 @@ package com.ethioroborobotics.robotics.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,8 +25,9 @@ public class Support {
     @Column(name = "description", nullable = false)
     private String description;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "contact_method", nullable = false)
-    private String contactMethod;
+    private ContactMethod contactMethod;
 
     @Column(name = "contact_details", nullable = false)
     private String contactDetails;

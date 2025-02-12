@@ -2,12 +2,15 @@ package com.ethioroborobotics.robotics.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -34,6 +37,7 @@ public class Feedback {
     @Column(name = "rating", nullable = false)
     private Integer rating;
 
-    @Column(name = "feedback_date", nullable = false)
+    @CreationTimestamp
+    @Column(name = "feedback_date", updatable = false)
     private LocalDate feedbackDate;
 }
