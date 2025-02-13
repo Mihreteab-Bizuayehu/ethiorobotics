@@ -30,10 +30,10 @@ public class Course {
 
     private String duration;
 
-    @Column(columnDefinition = "TEXT",length = 500)
+    @Column(columnDefinition = "TEXT")
     private String prerequisites;
 
-    @Column(columnDefinition = "TEXT",length = 500)
+    @Column(columnDefinition = "TEXT")
     private String resources;
 
 }
